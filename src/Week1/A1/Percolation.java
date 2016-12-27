@@ -1,6 +1,5 @@
 package Week1.A1;
 
-import Week1.WeightedQuickUnion;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 /**
