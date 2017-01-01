@@ -1,6 +1,4 @@
 package Week2.A2;
-
-import edu.princeton.cs.algs4.Stack;
 import edu.princeton.cs.algs4.StdRandom;
 
 import java.util.Iterator;
@@ -12,13 +10,13 @@ import java.util.NoSuchElementException;
  */
 public class RandomizedQueue<Item> implements Iterable<Item>{
     private Item[] values;
-    private Stack<Integer> slackSpots;
+    private Deque<Integer> slackSpots;
     private int size;
     private int n;
 
     public RandomizedQueue() {
         values = (Item[]) new Object[1];
-        slackSpots = new Stack<>();
+        slackSpots = new Deque<>();
         size = 0;
         n = 0;
     }
@@ -36,7 +34,7 @@ public class RandomizedQueue<Item> implements Iterable<Item>{
             throw new NullPointerException("Do not add null items");
 
         if (!slackSpots.isEmpty()) {
-            values[slackSpots.pop()] = item;
+            values[slackSpots.removeFirst()] = item;
         } else {
             values[n] = item;
             n++;
@@ -56,7 +54,7 @@ public class RandomizedQueue<Item> implements Iterable<Item>{
 
         Item toDequeue = values[removeIndex];
         values[removeIndex] = null;
-        slackSpots.push(removeIndex);
+        slackSpots.addFirst(removeIndex);
 
         size--;
 
@@ -68,6 +66,8 @@ public class RandomizedQueue<Item> implements Iterable<Item>{
     }
 
     public Item sample() {
+        if (isEmpty())
+            throw new NoSuchElementException("Queue is empty");
         return values[getRandomIndex()];
     }
 
@@ -95,7 +95,7 @@ public class RandomizedQueue<Item> implements Iterable<Item>{
 
         n = copyIndex;
         values = copy;
-        slackSpots = new Stack<>(); // we don't have anymore slack spots after de-fragmentation
+        slackSpots = new Deque<>(); // we don't have anymore slack spots after de-fragmentation
     }
 
     @Override
@@ -127,6 +127,9 @@ public class RandomizedQueue<Item> implements Iterable<Item>{
 
         @Override
         public Item next() {
+            if (!hasNext())
+                throw new NoSuchElementException("No more elements left in iterator");
+
             Item item = values[seq[index]];
             index++;
             return item;

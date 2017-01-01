@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
  * Created by Jashan Shewakramani
  * Description: Doubly-Linked list to store a deck
  */
-public class Dequeue<Item> implements Iterable<Item>{
+public class Deque<Item> implements Iterable<Item>{
     private Node first, last;
     private int size = 0;
 
@@ -135,37 +135,37 @@ public class Dequeue<Item> implements Iterable<Item>{
     }
 
     public static void main(String[] args) {
-        Dequeue<String> dequeue = new Dequeue<>();
-        dequeue.addFirst("hello world");
-        dequeue.addFirst("chocolate");
-        dequeue.addLast("my");
-        dequeue.addLast("name");
+        Deque<String> deque = new Deque<>();
+        deque.addFirst("hello world");
+        deque.addFirst("chocolate");
+        deque.addLast("my");
+        deque.addLast("name");
 
 
-        System.out.println("Dequeue size: " + dequeue.size() + "\n");
+        System.out.println("Dequeue size: " + deque.size() + "\n");
 
-        for (String s: dequeue)
+        for (String s: deque)
             System.out.println(s);
 
         System.out.println("=================\n");
-        System.out.println(dequeue.removeFirst());
-        System.out.println(dequeue.removeLast());
-        System.out.println(dequeue.removeFirst());
-        System.out.println(dequeue.removeLast());
-        System.out.println(dequeue.isEmpty());
+        System.out.println(deque.removeFirst());
+        System.out.println(deque.removeLast());
+        System.out.println(deque.removeFirst());
+        System.out.println(deque.removeLast());
+        System.out.println(deque.isEmpty());
 
-        System.out.println("Dequeue size: " + dequeue.size() + "\n");
+        System.out.println("Dequeue size: " + deque.size() + "\n");
 
         System.out.println("=================\n");
-        for (String s: dequeue)
+        for (String s: deque)
             System.out.println(s);
 
         for (int i = 0; i < 5; i++)
-            dequeue.addLast(String.valueOf(i));
+            deque.addLast(String.valueOf(i));
 
-        System.out.println(dequeue.isEmpty());
+        System.out.println(deque.isEmpty());
 
-        for (String s: dequeue)
+        for (String s: deque)
             System.out.println(s);
     }
 }
