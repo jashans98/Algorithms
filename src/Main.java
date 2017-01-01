@@ -1,34 +1,78 @@
-import Week1.QuickFind;
-import Week1.QuickUnion;
-import Week1.WeightedQuickUnion;
+
+import Week2.A2.Dequeue;
+import Week2.LinkedStack;
+import Week2.ResizingArrayQueue;
+import Week2.ResizingArrayStack;
+import edu.princeton.cs.algs4.Stopwatch;
 
 /**
  * Created by: Jashan Shewakramani
- * Description: Dump for testing all algorithms here on small cases
+ * Description: File for testing miscellaneous algorithms
  */
 
 public class Main {
 
     public static void main(String[] args) {
-        QuickFind uf = new QuickFind(5);
-        uf.union(1, 4);
-        uf.union(1, 3);
 
-        System.out.println(uf.connected(3, 4));
-        System.out.println(uf.connected(2, 4));
+    }
 
-        QuickUnion quickUnion = new QuickUnion(5);
-        quickUnion.union(1, 4);
-        quickUnion.union(1, 3);
+    private static void testResizeQueue() {
+        ResizingArrayQueue<String> queue = new ResizingArrayQueue<>();
+        for (int i = 0; i < 5000; i++)
+            queue.enqueue(String.valueOf(i));
 
-        System.out.println(quickUnion.connected(3, 4));
-        System.out.println(quickUnion.connected(2, 4));
+        for (int i = 0; i < 5000; i++) {
+            String item = queue.dequeue();
+            if (!item.equals(String.valueOf(i)))
+                System.out.println("Error: " + item + " expected " + String.valueOf(i));
 
-        WeightedQuickUnion w = new WeightedQuickUnion(5);
-        w.union(1, 4);
-        w.union(1, 3);
+        }
+    }
 
-        System.out.println(w.connected(3, 4));
-        System.out.println(w.connected(2, 4));
+    private static void runResizeTest() {
+        System.out.println("Resizing Array Stack Test");
+        System.out.println("=========================");
+        ResizingArrayStack<String> s = new ResizingArrayStack<>();
+        String toPush = "hello world";
+
+        Stopwatch stopwatch = new Stopwatch();
+        for (int i = 0; i < 1000000; i++) {
+            s.push(toPush);
+        }
+
+        System.out.println("Time after 1,000,000 pushes: " + stopwatch.elapsedTime());
+        System.out.println("Average time: " + stopwatch.elapsedTime() / 1000000);
+
+        for (int i = 0; i < 7890; i++) {
+            s.pop();
+        }
+
+        System.out.println("Time after 1007890 operations: " + stopwatch.elapsedTime());
+        System.out.println("Average time per operation: " + stopwatch.elapsedTime() / 1007890);
+        System.out.println("\n");
+
+    }
+
+    private static void runLinkedTest() {
+        System.out.println("LinkedList Stack test");
+        System.out.println("=========================");
+        LinkedStack<String> s = new LinkedStack<>();
+        String toPush = "hello world";
+
+        Stopwatch stopwatch = new Stopwatch();
+        for (int i = 0; i < 1000000; i++) {
+            s.push(toPush);
+        }
+
+        System.out.println("Time after 1,000,000 pushes: " + stopwatch.elapsedTime());
+        System.out.println("Average time: " + stopwatch.elapsedTime() / 1000000);
+
+        for (int i = 0; i < 7890; i++) {
+            s.pop();
+        }
+
+        System.out.println("Time after 1007890 operations: " + stopwatch.elapsedTime());
+        System.out.println("Average time per operation: " + stopwatch.elapsedTime() / 1007890);
+        System.out.println("\n");
     }
 }
