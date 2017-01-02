@@ -21,6 +21,10 @@ public class RandomizedQueue<Item> implements Iterable<Item>{
         n = 0;
     }
 
+    private int arrSize() {
+        return values.length;
+    }
+
     public int size() {
         return size;
     }
@@ -58,7 +62,7 @@ public class RandomizedQueue<Item> implements Iterable<Item>{
 
         size--;
 
-        if (size == values.length / 4)
+        if (size == values.length / 3)
             resizeAndDefragment(values.length / 2);
 
         return toDequeue;
@@ -144,5 +148,23 @@ public class RandomizedQueue<Item> implements Iterable<Item>{
     public static void main(String[] args) {
         RandomizedQueue<Integer> queue = new RandomizedQueue<>();
         int prevSize = -1;
+
+        int n = 64;
+
+        for (int i = 0; i < 2*n + 1; i++) {
+            queue.enqueue(i);
+            if (prevSize == -1 || queue.arrSize() > prevSize) {
+                prevSize = queue.arrSize();
+                System.out.println(prevSize);
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            queue.dequeue();
+            if (prevSize != queue.arrSize()) {
+                prevSize = queue.arrSize();
+                System.out.println(prevSize);
+            }
+        }
     }
 }
