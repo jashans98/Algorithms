@@ -1,8 +1,6 @@
 package Week1;
 
 
-import java.util.Arrays;
-
 /**
  * Created by Jashan Shewakramani
  * Description: ThreeSum code from lecture

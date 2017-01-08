@@ -6,23 +6,23 @@ import java.util.Iterator;
  * Created by Jashan Shewakramani
  * Description: Stack implementation using resizing arrays
  */
-public class ResizingArrayStack<T> implements Iterable<T>{
+public class ResizingArrayStack<Item> implements Iterable<Item>{
 
     private int n = 0;
 
     // pretty disgusting implementation, but Java gives us no other option
-    private T[] container = (T[]) new Object[1];
+    private Item[] container = (Item[]) new Object[1];
 
-    public void push(T item) {
+    public void push(Item item) {
         container[n] = item;
         n++;
         if (n == container.length)
             resize(container.length * 2);
     }
 
-    public T pop() {
+    public Item pop() {
         n--;
-        T item = container[n];
+        Item item = container[n];
         container[n] = null; // delete the unnecessary reference for the garbage collector
 
         // shrink when it's small enough
@@ -33,7 +33,7 @@ public class ResizingArrayStack<T> implements Iterable<T>{
     }
 
     private void resize(int size) {
-        T[] copy = (T[]) new Object[size];
+        Item[] copy = (Item[]) new Object[size];
         for (int i = 0; i < container.length; i++) {
             copy[i] = container[i];
         }
@@ -41,11 +41,11 @@ public class ResizingArrayStack<T> implements Iterable<T>{
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<Item> iterator() {
         return new ReverseArrayIterator();
     }
 
-    private class ReverseArrayIterator implements Iterator<T> {
+    private class ReverseArrayIterator implements Iterator<Item> {
 
         private int index = n - 1;
 
@@ -55,8 +55,8 @@ public class ResizingArrayStack<T> implements Iterable<T>{
         }
 
         @Override
-        public T next() {
-            T item = container[index];
+        public Item next() {
+            Item item = container[index];
             index--;
             return item;
         }

@@ -2,7 +2,11 @@
 import Week2.LinkedStack;
 import Week2.ResizingArrayQueue;
 import Week2.ResizingArrayStack;
+import Week3.A3.LineSegment;
+import Week3.A3.Point;
 import edu.princeton.cs.algs4.Stopwatch;
+
+import java.util.HashMap;
 
 /**
  * Created by: Jashan Shewakramani
