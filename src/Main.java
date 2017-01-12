@@ -2,11 +2,8 @@
 import Week2.LinkedStack;
 import Week2.ResizingArrayQueue;
 import Week2.ResizingArrayStack;
-import Week3.A3.LineSegment;
-import Week3.A3.Point;
+import Week3.Mergesort;
 import edu.princeton.cs.algs4.Stopwatch;
-
-import java.util.HashMap;
 
 /**
  * Created by: Jashan Shewakramani
@@ -16,7 +13,21 @@ import java.util.HashMap;
 public class Main {
 
     public static void main(String[] args) {
+        Integer[] t = {45, 2, 213, 12, 14, 342, 15};
+        System.out.println("Array before sorting:");
+        printArray(t);
+        Mergesort.sort(t);
+        System.out.println("Array after sorting:");
+        printArray(t);
+    }
 
+    private static void printArray(Object[] a) {
+        for (int i = 0; i < a.length; i++) {
+            if (i != a.length - 1)
+                System.out.print(a[i] + ", ");
+            else
+                System.out.println(a[i]);
+        }
     }
 
     private static void testResizeQueue() {
