@@ -1,5 +1,7 @@
 package Week3;
 
+import com.sun.istack.internal.NotNull;
+
 /**
  * Created by Jashan Shewakramani
  * Description: Efficient Java Mergesort Implementation
@@ -58,7 +60,6 @@ public class Mergesort {
 
     // main sorting function
     public static void sort(Comparable[] a) {
-        assert a != null;
         sortSubarray(a, a.clone(), 0, a.length - 1);
     }
 }

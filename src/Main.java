@@ -13,13 +13,11 @@ import edu.princeton.cs.algs4.Stopwatch;
 public class Main {
 
     public static void main(String[] args) {
-        Integer[] t = {45, 2, 213, 12, 14, 342, 15};
-        System.out.println("Array before sorting:");
-        printArray(t);
-        Mergesort.sort(t);
-        System.out.println("Array after sorting:");
-        printArray(t);
+        Integer p = 3;
+        Integer q = 4;
+        System.out.println(p.compareTo(q));
     }
+
 
     private static void printArray(Object[] a) {
         for (int i = 0; i < a.length; i++) {
