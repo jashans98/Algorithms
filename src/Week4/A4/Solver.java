@@ -1,7 +1,9 @@
 package Week4.A4;
 
 
+import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.MinPQ;
+import edu.princeton.cs.algs4.StdOut;
 
 import java.util.ArrayList;
 
@@ -15,7 +17,7 @@ public class Solver {
     private MinPQ<SearchNode> twinState = new MinPQ<>();
 
     // inner class helps us deal with search nodes individually
-    private class SearchNode implements Comparable {
+    private class SearchNode implements Comparable<SearchNode> {
         SearchNode previous;
         Board board;
         int numMoves;
@@ -28,15 +30,11 @@ public class Solver {
 
 
         @Override
-        public int compareTo(Object o) {
-            if (o instanceof SearchNode) {
-                SearchNode other = (SearchNode) o;
-                Integer otherPriority = other.board.manhattan() + other.numMoves;
-                Integer currentPriority = this.board.manhattan() + this.numMoves;
+        public int compareTo(SearchNode other) {
+            Integer otherPriority = other.board.manhattan() + other.numMoves;
+            Integer currentPriority = this.board.manhattan() + this.numMoves;
 
-                return currentPriority.compareTo(otherPriority);
-            }
-            return 0;
+            return currentPriority.compareTo(otherPriority);
         }
     }
 
@@ -61,7 +59,7 @@ public class Solver {
 
     private void iterate(MinPQ<SearchNode> state) {
         SearchNode toProcess = state.delMin();
-        Iterable<Board> neighbours = toProcess.board.neighbours();
+        Iterable<Board> neighbours = toProcess.board.neighbors();
         Board prevBoard = null;
 
         if (toProcess.previous != null)
@@ -105,13 +103,27 @@ public class Solver {
 
     // unit tests (these will be hard)
     public static void main(String[] args) {
-        int[][] initBlocks = {{0, 1, 3}, {4, 2, 5}, {7, 8, 6}};
-        Board b = new Board(initBlocks);
 
-        Solver s = new Solver(b);
+        // create initial board from file
+        In in = new In(args[0]);
+        int n = in.readInt();
+        int[][] blocks = new int[n][n];
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+                blocks[i][j] = in.readInt();
+        Board initial = new Board(blocks);
 
-        for (Board q : s.solution())
-            System.out.println(q);
+        // solve the puzzle
+        Solver solver = new Solver(initial);
+
+        // print solution to standard output
+        if (!solver.isSolvable())
+            StdOut.println("No solution possible");
+        else {
+            StdOut.println("Minimum number of moves = " + solver.moves());
+            for (Board board : solver.solution())
+                StdOut.println(board);
+        }
     }
 
 }

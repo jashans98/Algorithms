@@ -19,7 +19,7 @@ public class Board {
         if (config == null)
             throw new NullPointerException("Board cannot be null");
 
-        blocks = config.clone();
+        blocks = Board.copy(config);
         dimension = blocks.length;
         zeroIndex = findZero();
 
@@ -122,7 +122,7 @@ public class Board {
         return true;
     }
 
-    public static int[][] copy(int[][] init) {
+    private static int[][] copy(int[][] init) {
         int dim = init.length;
 
         int[][] res = new int[dim][dim];
@@ -157,21 +157,24 @@ public class Board {
 
     // convenience for visualization
     public String toString() {
-        StringBuilder result = new StringBuilder((2 * dimension) * dimension);
+        StringBuilder result = new StringBuilder(dimension() * dimension() * 2);
+        result.append(dimension);
+        result.append("\n");
+
+
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
+                result.append(" ");
                 result.append(blocks[i][j]);
                 if (j == dimension - 1)
                     result.append("\n");
-                else
-                    result.append(" ");
             }
         }
 
         return result.toString();
     }
 
-    public Iterable<Board> neighbours() {
+    public Iterable<Board> neighbors() {
         ArrayList<Board> result = new ArrayList<>();
         int zeroRow = zeroIndex / dimension;
         int zeroCol = zeroIndex % dimension;
@@ -201,7 +204,7 @@ public class Board {
 
     }
 
-    public int[][] exch(int init[][], int i, int j, int x, int y) {
+    private int[][] exch(int init[][], int i, int j, int x, int y) {
         int[][] result = Board.copy(init);
         int temp = result[i][j];
         result[i][j] = result[x][y];
@@ -217,7 +220,7 @@ public class Board {
 
         System.out.println(test);
 
-        for (Board n: test.neighbours())
+        for (Board n: test.neighbors())
             System.out.println(n);
     }
 
